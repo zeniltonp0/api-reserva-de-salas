@@ -19,4 +19,8 @@ class Sala extends Model
     public function tipoSala(): BelongsTo {
         return $this->belongsTo(TipoSala::class);
     }
+
+    public function predio(): BelongsTo {
+        return $this->belongsTo(Predio::class);
+    }
 }
