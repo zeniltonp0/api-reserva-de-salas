@@ -18,12 +18,8 @@ class RegisterController extends Controller
             'role' => ['required']
         ]);
 
-        $user = User::create($data);
-
-        // $user->tokens()->delete();
-        // $token = $user->createToken('auth_token')->plainTextToken;
+        User::create($data);
 
         return response()->noContent();
-
     }
 }
