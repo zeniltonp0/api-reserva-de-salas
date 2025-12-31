@@ -20,12 +20,10 @@ class RegisterController extends Controller
 
         $user = User::create($data);
 
-        $user->tokens()->delete();
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // $user->tokens()->delete();
+        // $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'access_token' => $token,
-        ]);
+        return response()->noContent();
 
     }
 }
