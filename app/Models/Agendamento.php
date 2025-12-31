@@ -18,4 +18,8 @@ class Agendamento extends Model
     public function sala(): BelongsTo{
         return $this->belongsTo(Sala::class);
     }
+
+    public function status(): BelongsTo {
+        return $this->belongsTo(StatusAgendamento::class);
+    }
 }

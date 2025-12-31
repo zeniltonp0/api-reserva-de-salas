@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Sala;
+use App\Models\StatusAgendamento;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(Sala::class, 'sala_id')->constrained();
             $table->dateTime('inicio');
             $table->dateTime('fim');
+            $table->foreignIdFor(StatusAgendamento::class, 'status_id')->constrained();
             $table->text('motivo')->nullable();
             $table->timestamps();
         });
