@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Predio;
 use App\Models\TipoSala;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,6 +16,7 @@ return new class extends Migration
         Schema::create('salas', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(TipoSala::class)->constrained();
+            $table->foreignIdFor(Predio::class, 'predio_id')->constrained();
             $table->string('nome');
             $table->integer('capacidade');
             $table->integer('andar');
