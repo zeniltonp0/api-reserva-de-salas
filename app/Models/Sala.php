@@ -23,4 +23,10 @@ class Sala extends Model
     public function predio(): BelongsTo {
         return $this->belongsTo(Predio::class);
     }
+
+    public function equipamentos(){
+        return $this->belongsToMany(Equipamento::class, 'equipamento_sala')
+                    ->withPivot('quantidade', 'ativo')
+                    ->withTimestamps();
+    }
 }
