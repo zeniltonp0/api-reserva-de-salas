@@ -18,10 +18,8 @@ class RegisterController extends Controller
             'role' => ['required']
         ]);
 
-        $user = User::create($data);
-        return response()->json($user, 201);
+        User::create($data);
 
-        // Auth::login($user);
-
+        return response()->noContent();
     }
 }
