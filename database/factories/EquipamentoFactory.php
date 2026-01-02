@@ -17,7 +17,9 @@ class EquipamentoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nome' => fake()->word(),
+            'marca' => fake()->word(),
+            'descricao' => fake()->paragraph(),
         ];
     }
 }

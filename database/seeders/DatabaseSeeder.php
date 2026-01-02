@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             SalaSeeder::class,
             StatusAgendamentoSeeder::class,
             AgendamentoSeeder::class,
+            EquipamentoSeeder::class,
+            SalaSeeder::class
         ]);
     }
 }

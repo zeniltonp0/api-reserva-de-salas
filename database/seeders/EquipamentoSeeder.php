@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Equipamento;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class EquipamentoSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Equipamento::factory()->count(3)->create();
     }
 }

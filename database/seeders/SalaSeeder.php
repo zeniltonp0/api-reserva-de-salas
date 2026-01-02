@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Sala;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Equipamento;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class SalaSeeder extends Seeder
 {
@@ -13,6 +14,12 @@ class SalaSeeder extends Seeder
      */
     public function run(): void
     {
-        Sala::factory()->count(7)->create();
+        Sala::factory()->count(10)->hasAttached(Equipamento::factory()->count(3),
+                fn () => [
+                        'quantidade' => fake()->numberBetween(1, 10),
+                        'ativo' => fake()->boolean(), 
+                ]
+                        
+            )->create();
     }
 }
