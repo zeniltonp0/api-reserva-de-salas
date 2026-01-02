@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('status_agendamentos', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('nome');
             $table->timestamps();
         });
     }

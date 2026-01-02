@@ -17,7 +17,8 @@ class PredioFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nome' => fake()->word(),
+            'sigla' => fake()->companySuffix(),
         ];
     }
 }
