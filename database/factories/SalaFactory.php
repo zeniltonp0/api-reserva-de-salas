@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Predio;
+use App\Models\TipoSala;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,12 @@ class SalaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'tipo_sala_id' => TipoSala::factory(),
+            'predio_id' => Predio::factory(),
+            'nome' => fake()->word(),
+            'capacidade' => fake()->numberBetween(10, 30),
+            'andar' => fake()->numberBetween(1, 3),
+            'ativa' => fake()->boolean(),
         ];
     }
 }
