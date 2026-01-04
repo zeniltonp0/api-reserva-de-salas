@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Agendamento;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Agendamento\StoreAgendamentoRequest;
 use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
@@ -12,15 +13,8 @@ class StoreController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(StoreAgendamentoRequest $request)
     {
-        $request->validate([
-            'sala_id' => ['required', Rule::exists('salas', 'id')],
-            'inicio' => ['required', 'date', 'after:now'],
-            'fim' => ['required', 'date', 'after:inicio'],
-            'motivo' => ['string', 'min:5', 'max:255']
-        ]);
-
         $user = Auth::user();
 
         $user->agendamentos()->create([
