@@ -18,8 +18,10 @@ class AgendamentoResource extends JsonResource
         /** @var Agendamento $this */
         return [
             'message' => 'Agendamento criado com sucesso!',
-            'inicio' => $this->inicio,
-            'fim' => $this->fim,
+            'inicio' => $request->inicio,
+            'fim' => $request->fim,
+            'sala' => $request->sala_id,
+            'motivo' => $request->motivo,
         ];
     }
 }
