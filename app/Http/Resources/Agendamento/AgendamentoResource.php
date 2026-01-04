@@ -15,13 +15,13 @@ class AgendamentoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        /** @var Agendamento $this */
         return [
             'message' => 'Agendamento criado com sucesso!',
-            'inicio' => $request->inicio,
-            'fim' => $request->fim,
-            'sala' => $request->sala_id,
-            'motivo' => $request->motivo,
+            'inicio' => $this->inicio,
+            'fim' => $this->fim,
+            'sala' => $this->sala->nome,
+            'status' => $this->status->nome,
+            'motivo' => $this->motivo,
         ];
     }
 }
