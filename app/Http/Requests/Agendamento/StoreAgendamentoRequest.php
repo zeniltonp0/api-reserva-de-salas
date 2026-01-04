@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Agendamento;
 
+use App\Rules\SemConflitoRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,7 +24,7 @@ class StoreAgendamentoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sala_id' => ['required', Rule::exists('salas', 'id')],
+            'sala_id' => ['required', Rule::exists('salas', 'id'), new SemConflitoRule($this)],
             'inicio' => ['required', 'date', 'after:now'],
             'fim' => ['required', 'date', 'after:inicio'],
             'motivo' => ['string', 'min:5', 'max:255']

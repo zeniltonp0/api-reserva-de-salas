@@ -17,21 +17,6 @@ class StoreController extends Controller
     {
         $user = Auth::user();
 
-        
-
-        $conflito = Agendamento::where('sala_id', $request->sala_id)
-            ->whereIn('status_id', [1, 2])
-            ->where(function ($query) use ($request){
-                $query->where('inicio', '<', $request->fim)
-                    ->where('fim', '>', $request->inicio);
-            })->exists();
-
-        if($conflito){
-            return response()->json([
-                'message' => 'Já existe um agendamento nesse horário.'
-            ], 422);
-        }
-
         $agendamento = $user->agendamentos()->create([
             'sala_id' => $request->sala_id,
             'inicio' => $request->inicio,
