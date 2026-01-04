@@ -17,10 +17,10 @@ class StoreController extends Controller
     {
         $user = Auth::user();
 
-        $statusAprovado = StatusAgendamento::where('nome', 'aprovado')->first();
+        
 
         $conflito = Agendamento::where('sala_id', $request->sala_id)
-            ->where('status_id', $statusAprovado->id)
+            ->whereIn('status_id', [1, 2])
             ->where(function ($query) use ($request){
                 $query->where('inicio', '<', $request->fim)
                     ->where('fim', '>', $request->inicio);
