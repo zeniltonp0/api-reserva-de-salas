@@ -22,3 +22,4 @@ Route::post('/logout', LogoutController::class)->name('logout')->middleware('aut
 
 Route::post('/agendamentos', StoreController::class)->name('agendamentos.store')->middleware('auth:sanctum');
 Route::get('/agendamentos', [IndexController::class, 'index'])->name('agendamentos.index')->middleware('auth:sanctum');
+Route::get('/agendamentos/{agendamento}', [IndexController::class, 'show'])->name('agendamentos.show')->middleware('auth:sanctum');
