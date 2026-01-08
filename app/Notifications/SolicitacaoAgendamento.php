@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Agendamento;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,12 +12,10 @@ class SolicitacaoAgendamento extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct()
+    protected $agendamento;
+    public function __construct(Agendamento $agendamento)
     {
-        //
+        $this->agendamento = $agendamento;
     }
 
     /**
@@ -35,7 +34,13 @@ class SolicitacaoAgendamento extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
+            ->subject('Nova Solicitação de Sala')
+            ->greeting('Olá, Administrador!')
+            ->line('Um novo agendamento foi solicitado')
+            ->line('Sala: '. $this->agendamento->sala->nome)
+            ->line('Inicio: '. $this->agendamento->inicio)
+            ->line('Fim: '. $this->agendamento->fim)
+            ->line('Motivo: '. $this->agendamento->motivo)
             ->action('Notification Action', url('/'))
             ->line('Thank you for using our application!');
     }
