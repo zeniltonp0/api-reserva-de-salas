@@ -21,6 +21,9 @@ Route::post('/register', RegisterController::class)->name('register');
 Route::post('/login', LoginController::class)->name('login');
 Route::post('/logout', LogoutController::class)->name('logout')->middleware('auth:sanctum');
 
-Route::post('/agendamentos', StoreController::class)->name('agendamentos.store')->middleware('auth:sanctum');
-Route::get('/agendamentos', IndexController::class)->name('agendamentos.index')->middleware('auth:sanctum');
-Route::get('/agendamentos/{agendamento}', ShowController::class)->name('agendamentos.show')->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function(){
+    Route::post('/agendamentos', StoreController::class)->name('agendamentos.store');
+    Route::get('/agendamentos', IndexController::class)->name('agendamentos.index');
+    Route::get('/agendamentos/{agendamento}', ShowController::class)->name('agendamentos.show');
+});
+
