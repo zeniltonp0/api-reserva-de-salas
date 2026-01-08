@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Agendamento\AgendamentoResource;
 use App\Http\Requests\Agendamento\StoreAgendamentoRequest;
+use App\Models\User;
+use App\Notifications\SolicitacaoAgendamento;
+use Illuminate\Support\Facades\Notification;
 
 class StoreController extends Controller
 {
@@ -24,6 +27,10 @@ class StoreController extends Controller
             'motivo' => $request->motivo,
             'status_id' => 1
         ]);
+
+        $admin = User::where('role', 'admin')->get();
+
+        Notification::send($admin, new SolicitacaoAgendamento($agendamento));
 
         return AgendamentoResource::make($agendamento);
     }
