@@ -50,7 +50,7 @@ class AgendamentoPolicy
 
     public function cancel(User $user, Agendamento $agendamento): bool
     {
-        return $user->id === $agendamento->user_id;
+        return $user->id === $agendamento->user_id && $agendamento->status_id !== 2;
     }
 
     /**
