@@ -48,6 +48,11 @@ class AgendamentoPolicy
         return $user->id === $agendamento->user_id;
     }
 
+    public function cancel(User $user, Agendamento $agendamento): bool
+    {
+        return $user->id === $agendamento->user_id;
+    }
+
     /**
      * Determine whether the user can restore the model.
      */
