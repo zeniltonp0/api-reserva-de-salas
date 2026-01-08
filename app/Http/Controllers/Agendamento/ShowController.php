@@ -3,20 +3,19 @@
 namespace App\Http\Controllers\Agendamento;
 
 use App\Models\Agendamento;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Agendamento\AgendamentoResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class IndexController extends Controller
+class ShowController extends Controller
 {
     use AuthorizesRequests;
-    public function __invoke()
+    
+    public function __invoke(Agendamento $agendamento)
     {
-        $user = Auth::user();
+        $this->authorize('view', $agendamento);
 
-        $query = $user->agendamentos()->with('sala')->latest();
-
-        return AgendamentoResource::collection($query->paginate(5));
+        return AgendamentoResource::make($agendamento);
     }
 }
