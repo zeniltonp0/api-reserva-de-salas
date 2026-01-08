@@ -16,7 +16,6 @@ class AgendamentoResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'message' => 'Agendamento criado com sucesso!',
             'inicio' => $this->inicio,
             'fim' => $this->fim,
             'sala' => $this->sala->nome,

@@ -21,7 +21,7 @@ class AgendamentoPolicy
      */
     public function view(User $user, Agendamento $agendamento): bool
     {
-        return $user->id === $agendamento->user_id;
+        return $user->id == ($agendamento->user_id ?? null);
     }
 
     /**
