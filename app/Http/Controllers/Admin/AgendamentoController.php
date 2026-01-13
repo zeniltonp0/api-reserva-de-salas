@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Agendamento\AgendamentoResource;
 use App\Models\Agendamento;
 use Illuminate\Http\Request;
 
@@ -10,27 +11,33 @@ class AgendamentoController extends Controller
 {
     public function aprovar(Agendamento $agendamento, Request $request){
 
-        if (!$request->user()->tokenCan('admin:all')) {
-            return response()->json(['message' => 'Você não pode fazer essa ação.'], 403);
+        if (!$request->hasValidSignature() && (!$request->user() || !$request->user()->tokenCan('admin:all'))) {
+            return response()->json(['message' => 'Ação não autorizada.'], 403);
         }
 
         $agendamento->update([
             'status_id' => 2
         ]);
 
-        return response()->json(['message' => 'Agendamento aprovado com sucesso!'], 200);
+        $agendamento->load('sala');
+
+        return AgendamentoResource::make($agendamento)
+            ->additional(['message' => 'Agendamento aprovado.']);
     }
 
     public function recusar(Agendamento $agendamento, Request $request){
 
-        if (!$request->user()->tokenCan('admin:all')) {
-            return response()->json(['message' => 'Você não pode fazer essa ação.'], 403);
+        if (!$request->hasValidSignature() && (!$request->user() || !$request->user()->tokenCan('admin:all'))) {
+            return response()->json(['message' => 'Ação não autorizada.'], 403);
         }
 
         $agendamento->update([
             'status_id' => 3
         ]);
 
-        return response()->json(['message' => 'Agendamento recusado com sucesso!'], 200);
+        $agendamento->load('sala');
+
+        return AgendamentoResource::make($agendamento)
+            ->additional(['message' => 'Agendamento recusado.']);
     }
 }
