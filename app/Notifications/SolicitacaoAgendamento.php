@@ -4,9 +4,10 @@ namespace App\Notifications;
 
 use App\Models\Agendamento;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class SolicitacaoAgendamento extends Notification
 {
@@ -33,6 +34,14 @@ class SolicitacaoAgendamento extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $urlAprovar = URL::temporarySignedRoute(
+            'admin.agendamento.aprovar', now()->addHours(24), ['agendamento' => $this->agendamento->id]
+        );
+
+        $urlRecusar = URL::temporarySignedRoute(
+            'admin.agendamento.recusar', now()->addHours(24), ['agendamento' => $this->agendamento->id]
+        );
+
         return (new MailMessage)
             ->subject('Nova Solicitação de Sala')
             ->greeting('Olá, Administrador!')
@@ -41,8 +50,9 @@ class SolicitacaoAgendamento extends Notification
             ->line('Inicio: '. $this->agendamento->inicio)
             ->line('Fim: '. $this->agendamento->fim)
             ->line('Motivo: '. $this->agendamento->motivo)
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->action('Aprovar Agendamento', $urlAprovar)
+            ->line('Se desejar recusar, copie o link abaixo e cole no navegador:')
+            ->line($urlRecusar);
     }
 
     /**

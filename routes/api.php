@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AgendamentoController;
 use App\Http\Controllers\Agendamento\CancelController;
 use App\Http\Controllers\Agendamento\IndexController;
 use App\Http\Controllers\Agendamento\ShowController;
@@ -27,4 +28,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/agendamentos', IndexController::class)->name('agendamentos.index');
     Route::get('/agendamentos/{agendamento}', ShowController::class)->name('agendamentos.show');
     Route::patch('/agendamentos/{agendamento}/cancel', CancelController::class)->name('agendamentos.cancel');
+});
+
+Route::middleware('signed')->group(function(){
+    Route::get('/agendamentos/{agendamento}/aprovar', [AgendamentoController::class, 'aprovar'])->name('admin.agendamento.aprovar');
+    Route::get('/agendamentos/{agendamento}/recusar', [AgendamentoController::class, 'recusar'])->name('admin.agendamento.recusar');
 });
