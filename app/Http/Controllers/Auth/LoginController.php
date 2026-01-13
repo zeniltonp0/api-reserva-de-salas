@@ -23,9 +23,14 @@ class LoginController extends Controller
             ]);
         }
 
-       $user = User::where('email', $request->email)->firstOrFail();
+        
+        $user = User::where('email', $request->email)->firstOrFail();
+        
+        $abilities = $user->role === 'admin'
+        ? ['admin:all', 'agendamento:gerenciar', 'sala:geranciar']
+        : ['agendamento:solicitar', 'agendamento:view'];
 
-       $token = $user->createToken('auth_token')->plainTextToken;
+       $token = $user->createToken('auth_token', $abilities)->plainTextToken;
 
        return response()->json([
            'access_token' => $token,

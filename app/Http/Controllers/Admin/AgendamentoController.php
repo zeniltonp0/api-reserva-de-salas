@@ -8,7 +8,12 @@ use Illuminate\Http\Request;
 
 class AgendamentoController extends Controller
 {
-    public function aprovar(Agendamento $agendamento){
+    public function aprovar(Agendamento $agendamento, Request $request){
+
+        if (!$request->user()->tokenCan('admin:all')) {
+            return response()->json(['message' => 'Você não pode fazer essa ação.'], 403);
+        }
+
         $agendamento->update([
             'status_id' => 2
         ]);
@@ -16,7 +21,12 @@ class AgendamentoController extends Controller
         return response()->json(['message' => 'Agendamento aprovado com sucesso!'], 200);
     }
 
-    public function recusar(Agendamento $agendamento){
+    public function recusar(Agendamento $agendamento, Request $request){
+
+        if (!$request->user()->tokenCan('admin:all')) {
+            return response()->json(['message' => 'Você não pode fazer essa ação.'], 403);
+        }
+
         $agendamento->update([
             'status_id' => 3
         ]);

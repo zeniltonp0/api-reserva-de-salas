@@ -9,7 +9,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function(Request $request){
@@ -31,6 +30,6 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 
 Route::middleware('signed')->group(function(){
-    Route::get('/agendamentos/{agendamento}/aprovar', [AgendamentoController::class, 'aprovar'])->name('admin.agendamento.aprovar');
-    Route::get('/agendamentos/{agendamento}/recusar', [AgendamentoController::class, 'recusar'])->name('admin.agendamento.recusar');
+    Route::get('admin/agendamentos/{agendamento}/aprovar', [AgendamentoController::class, 'aprovar'])->name('admin.agendamento.aprovar');
+    Route::get('admin/agendamentos/{agendamento}/recusar', [AgendamentoController::class, 'recusar'])->name('admin.agendamento.recusar');
 });
