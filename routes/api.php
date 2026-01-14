@@ -5,6 +5,7 @@ use App\Http\Controllers\Agendamento\CancelController;
 use App\Http\Controllers\Agendamento\IndexController;
 use App\Http\Controllers\Agendamento\ShowController;
 use App\Http\Controllers\Agendamento\StoreController;
+use App\Http\Controllers\Admin\Sala;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -27,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/agendamentos', IndexController::class)->name('agendamentos.index');
     Route::get('/agendamentos/{agendamento}', ShowController::class)->name('agendamentos.show');
     Route::patch('/agendamentos/{agendamento}/cancel', CancelController::class)->name('agendamentos.cancel');
+    Route::post('/salas', Sala\StoreController::class)->name('salas.store');
 });
 
 Route::middleware('signed')->group(function(){
