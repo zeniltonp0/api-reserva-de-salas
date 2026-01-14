@@ -3,23 +3,15 @@
 namespace App\Http\Controllers\Admin\Sala;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sala\StoreSalaRequest;
 use App\Http\Resources\SalaResource;
 use App\Models\Sala;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(StoreSalaRequest $request)
     {
-        $request->validate([
-            'tipo_sala_id' => 'required',
-            'predio_id' => 'required',
-            'nome' => 'required|string',
-            'capacidade' => 'required|integer',
-            'andar' => 'required|integer',
-            'ativa' => 'required',
-        ]);
-
         $sala = Sala::create([
             'tipo_sala_id' => $request->tipo_sala_id,
             'predio_id' => $request->predio_id,
