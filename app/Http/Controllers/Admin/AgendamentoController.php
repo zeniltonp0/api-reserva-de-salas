@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Agendamento\AgendamentoResource;
+use App\Http\Resources\AgendamentoResource;
 use App\Models\Agendamento;
 use Illuminate\Http\Request;
 
