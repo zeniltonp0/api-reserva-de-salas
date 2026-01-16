@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/agendamentos/{agendamento}', ShowController::class)->name('agendamentos.show');
     Route::patch('/agendamentos/{agendamento}/cancel', CancelController::class)->name('agendamentos.cancel');
     Route::post('/salas', Sala\StoreController::class)->name('salas.store');
+    Route::get('/salas', Sala\IndexController::class)->name('salas.index');
 });
 
 Route::middleware('signed')->group(function(){

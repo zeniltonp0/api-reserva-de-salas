@@ -12,7 +12,7 @@ class StoreController extends Controller
 {
     public function __invoke(StoreSalaRequest $request)
     {
-        if (!$request->user()->tokenCan('sala:gerenciar')) {
+        if (!$request->user()->tokenCan('admin:all')) {
             return response()->json([
                 'message' => 'Você não tem permissão para criar uma sala'
             ], 403);
