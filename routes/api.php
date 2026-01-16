@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::patch('/agendamentos/{agendamento}/cancel', CancelController::class)->name('agendamentos.cancel');
     Route::post('/salas', Sala\StoreController::class)->name('salas.store');
     Route::get('/salas', Sala\IndexController::class)->name('salas.index');
+    Route::put('/salas/{sala}', Sala\UpdateController::class)->name('salas.update');
 });
 
 Route::middleware('signed')->group(function(){
