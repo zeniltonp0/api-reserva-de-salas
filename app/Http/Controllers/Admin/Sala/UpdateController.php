@@ -19,6 +19,8 @@ class UpdateController extends Controller
             return response()->json(['message' => 'Você não tem permissão para isso.'], 403);
         }
 
+        $this->authorize('update', $sala);
+
         $sala->update([
             'nome' => $request->nome,
             'capacidade' => $request->capacidade,

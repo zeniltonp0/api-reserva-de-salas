@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Policies\Agendamento;
+namespace App\Policies;
 
 use App\Models\Agendamento;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class AgendamentoPolicy
 {
@@ -29,7 +28,7 @@ class AgendamentoPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
