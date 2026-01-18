@@ -6,6 +6,7 @@ use App\Http\Controllers\Agendamento\IndexController;
 use App\Http\Controllers\Agendamento\ShowController;
 use App\Http\Controllers\Agendamento\StoreController;
 use App\Http\Controllers\Admin\Sala;
+use App\Http\Controllers\Admin\Agendamento;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -35,6 +36,6 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 
 Route::middleware('signed')->group(function(){
-    Route::get('admin/agendamentos/{agendamento}/aprovar', [AgendamentoController::class, 'aprovar'])->name('admin.agendamento.aprovar');
-    Route::get('admin/agendamentos/{agendamento}/recusar', [AgendamentoController::class, 'recusar'])->name('admin.agendamento.recusar');
+    Route::get('admin/agendamentos/{agendamento}/aprovar', Agendamento\AprovacaoController::class)->name('admin.agendamento.aprovar');
+    Route::get('admin/agendamentos/{agendamento}/recusar', Agendamento\DesaprovacaoController::class)->name('admin.agendamento.recusar');
 });
