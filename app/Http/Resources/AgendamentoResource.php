@@ -20,6 +20,7 @@ class AgendamentoResource extends JsonResource
             'sala' => $this->sala->nome,
             'status' => $this->status->nome,
             'motivo' => $this->motivo,
+            'user' => $this->user->name
         ];
     }
 }
