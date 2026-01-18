@@ -21,11 +21,24 @@ class UpdateController extends Controller
 
         $this->authorize('update', $sala);
 
+        $estaDesativando = $request->has('ativa') && $request->ativa == false;
+
         $sala->update([
             'nome' => $request->nome,
             'capacidade' => $request->capacidade,
             'ativa' => $request->ativa
         ]);
+
+        if ($estaDesativando) {
+            $agendamentosAfetados = $sala->agendamentos()
+                ->whereIn('status_id', [1, 2])
+                ->where('inicio', '>', now())
+                ->get();
+
+            foreach ($agendamentosAfetados as $agendamento) {
+                $agendamento->update(['status_id' => 3]);
+            }
+        }
 
         return SalaResource::make($sala)
             ->additional(['message' => 'Sala atualizada com sucesso!']);
