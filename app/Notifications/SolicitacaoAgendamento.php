@@ -50,6 +50,7 @@ class SolicitacaoAgendamento extends Notification
             ->line('Inicio: '. $this->agendamento->inicio)
             ->line('Fim: '. $this->agendamento->fim)
             ->line('Motivo: '. $this->agendamento->motivo)
+            ->line('Solicitante: '. $this->agendamento->user->name)
             ->action('Aprovar Agendamento', $urlAprovar)
             ->line('Se desejar recusar, copie o link abaixo e cole no navegador:')
             ->line($urlRecusar);
