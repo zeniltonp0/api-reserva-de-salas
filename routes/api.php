@@ -28,9 +28,10 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/agendamentos', IndexController::class)->name('agendamentos.index');
     Route::get('/agendamentos/{agendamento}', ShowController::class)->name('agendamentos.show');
     Route::patch('/agendamentos/{agendamento}/cancel', CancelController::class)->name('agendamentos.cancel');
-    Route::post('/salas', Sala\StoreController::class)->name('salas.store');
-    Route::get('/salas', Sala\IndexController::class)->name('salas.index');
-    Route::put('/salas/{sala}', Sala\UpdateController::class)->name('salas.update');
+    Route::post('admin/salas', Sala\StoreController::class)->name('salas.store');
+    Route::get('admin/salas', Sala\IndexController::class)->name('salas.index');
+    Route::put('admin/salas/{sala}', Sala\UpdateController::class)->name('salas.update');
+    Route::patch('admin/salas/{sala}/deactivate', Sala\DeactivateController::class)->name('salas.deactivate');
 });
 
 Route::middleware('signed')->group(function(){

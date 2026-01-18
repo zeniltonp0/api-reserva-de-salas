@@ -48,6 +48,11 @@ class SalaPolicy
         return $user->role === 'admin';
     }
 
+    public function deactivate(User $user, Sala $sala): bool
+    {
+        return $user->role === 'admin';
+    }
+
     /**
      * Determine whether the user can restore the model.
      */
