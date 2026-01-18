@@ -6,7 +6,7 @@ use App\Models\Agendamento;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
-use App\Policies\Agendamento\AgendamentoPolicy;
+use App\Policies\AgendamentoPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {

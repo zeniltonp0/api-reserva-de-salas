@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Agendamento;
 use App\Models\Agendamento;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Agendamento\AgendamentoResource;
+use App\Http\Resources\AgendamentoResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ShowController extends Controller
