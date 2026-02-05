@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgendamentoController;
+use App\Http\Controllers\Admin\Equipamento;
 use App\Http\Controllers\Agendamento\CancelController;
 use App\Http\Controllers\Agendamento\IndexController;
 use App\Http\Controllers\Agendamento\ShowController;
@@ -38,6 +39,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::patch('admin/salas/{sala}/deactivate', Sala\DeactivateController::class)->name('salas.deactivate');
     Route::get('admin/agendamentos', Agendamento\IndexController::class)->name('agendamentos.index');
     Route::post('admin/salas/{sala}/equipamentos', SyncEquipamentoController::class)->name('salas.sync.equipamentos');
+    Route::get('admin/equipamentos', Equipamento\IndexController::class)->name('equipamentos.index');
 });
 
 Route::middleware('signed')->group(function(){

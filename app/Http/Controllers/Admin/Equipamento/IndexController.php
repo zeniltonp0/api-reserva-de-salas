@@ -11,6 +11,12 @@ class IndexController extends Controller
 {
     public function __invoke(Request $request)
     {
+        if (!$request->user()->tokenCan('admin:all')) {
+            return response()->json([
+                'message' => 'Você não tem permissão para isso.'
+            ], 403);
+        }
+        
         $query = Equipamento::query();
 
         if($request->has('nome')) {
