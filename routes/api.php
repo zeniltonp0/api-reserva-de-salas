@@ -42,6 +42,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('admin/equipamentos', Equipamento\IndexController::class)->name('equipamentos.index');
     Route::post('admin/equipamentos', Equipamento\StoreController::class)->name('equipamentos.store');
     Route::put('admin/equipamentos/{equipamento}', Equipamento\UpdateController::class)->name('equipamentos.update');
+    Route::post('admin/equipamentos/{equipamento}', Equipamento\DestroyController::class)->name('equipamentos.delete');
 });
 
 Route::middleware('signed')->group(function(){
