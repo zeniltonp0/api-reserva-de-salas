@@ -15,10 +15,14 @@ class EquipamentoResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'nome' => $this->nome,
-            'marca' => $this->marca,
-            'descricao' => $this->descricao,
-        ];
+        'id' => $this->id,
+        'nome' => $this->nome,
+        'quantidade' => $this->whenPivotLoaded('equipamento_sala', function () {
+            return $this->pivot->quantidade;
+        }),
+        'ativo' => $this->whenPivotLoaded('equipamento_sala', function () {
+            return (bool) $this->pivot->ativo;
+        }),
+    ];
     }
 }
