@@ -17,6 +17,8 @@ class EquipamentoResource extends JsonResource
         return [
         'id' => $this->id,
         'nome' => $this->nome,
+        'descricao' => $this->descricao,
+        'marca' => $this->marca,
         'quantidade' => $this->whenPivotLoaded('equipamento_sala', function () {
             return $this->pivot->quantidade;
         }),
