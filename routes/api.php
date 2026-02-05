@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('admin/salas/{sala}/equipamentos', SyncEquipamentoController::class)->name('salas.sync.equipamentos');
     Route::get('admin/equipamentos', Equipamento\IndexController::class)->name('equipamentos.index');
     Route::post('admin/equipamentos', Equipamento\StoreController::class)->name('equipamentos.store');
+    Route::put('admin/equipamentos/{equipamento}', Equipamento\UpdateController::class)->name('equipamentos.update');
 });
 
 Route::middleware('signed')->group(function(){
