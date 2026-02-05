@@ -18,7 +18,7 @@ class StoreController extends Controller
         }
 
         $data = $request->validate([
-            'nome' => ['required', 'string', 'max: 255', 'min:3'],
+            'nome' => ['required', 'string', 'max: 255', 'min:3', 'unique:equipamentos'],
             'marca' => ['required', 'string', 'max: 255', 'min:2'],
             'descricao' => ['string', 'max:255', 'min:3']
         ]);
