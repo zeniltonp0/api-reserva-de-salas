@@ -11,14 +11,27 @@ class IndexController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $query = Sala::query();
+        $query = Sala::with(['equipamentos', 'status']);
+
+        $query->where('disponivel', true);
+
+        if ($request->has('equipamentos') && is_array($request->equipamentos)) {
+            $equipamentosSolicitados = $request->equipamentos;
+            foreach ($equipamentosSolicitados as $id) {
+                $query->whereHas('equipamentos', function ($q) use ($id) {
+                    $q->where('equipamentos.id', $id)
+                      ->where('equipamento_sala.ativo', true);
+                });
+            }
+        }
+
+        if ($request->has('capacidade_minima')) {
+            $query->where('capacidade', '>=', $request->capacidade_minima);
+        }
 
         if(!$request->user()?->tokenCan('admin:all')) {
             $query->where('ativa', true);
         }
-
-        $query->orderBy('nome', 'asc');
-
         return SalaResource::collection($query->paginate(10));
     }
 }

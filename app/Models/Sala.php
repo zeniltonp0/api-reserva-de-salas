@@ -26,7 +26,7 @@ class Sala extends Model
 
     public function equipamentos(){
         return $this->belongsToMany(Equipamento::class, 'equipamento_sala')
-                    ->withPivot('quantidade', 'ativo')
+                    ->withPivot('quantidade')
                     ->withTimestamps();
     }
 }

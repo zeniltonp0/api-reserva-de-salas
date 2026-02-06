@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\AgendamentoController;
+use App\Http\Controllers\Admin\Equipamento;
 use App\Http\Controllers\Agendamento\CancelController;
 use App\Http\Controllers\Agendamento\IndexController;
 use App\Http\Controllers\Agendamento\ShowController;
 use App\Http\Controllers\Agendamento\StoreController;
 use App\Http\Controllers\Admin\Sala;
 use App\Http\Controllers\Admin\Agendamento;
+use App\Http\Controllers\Admin\Sala\SyncEquipamentoController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -36,6 +38,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::put('admin/salas/{sala}', Sala\UpdateController::class)->name('salas.update');
     Route::patch('admin/salas/{sala}/deactivate', Sala\DeactivateController::class)->name('salas.deactivate');
     Route::get('admin/agendamentos', Agendamento\IndexController::class)->name('agendamentos.index');
+    Route::post('admin/salas/{sala}/equipamentos', SyncEquipamentoController::class)->name('salas.sync.equipamentos');
+    Route::get('admin/equipamentos', Equipamento\IndexController::class)->name('equipamentos.index');
+    Route::post('admin/equipamentos', Equipamento\StoreController::class)->name('equipamentos.store');
+    Route::put('admin/equipamentos/{equipamento}', Equipamento\UpdateController::class)->name('equipamentos.update');
+    Route::post('admin/equipamentos/{equipamento}', Equipamento\DestroyController::class)->name('equipamentos.delete');
 });
 
 Route::middleware('signed')->group(function(){
