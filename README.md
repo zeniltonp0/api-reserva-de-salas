@@ -1,59 +1,77 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# API de reserva de salas 
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API para gerenciamento e agendamento de salas de reunião, com controle de inventário de equipamentos e automação de limpeza de dados.
 
-## About Laravel
+## 🛠️ Tecnologias e Ferramentas
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Framework: Laravel 12
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Linguagem: PHP 8.3+
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Autenticação: Laravel Sanctum (Abilities para Admin/User)
 
-## Learning Laravel
+- Banco de Dados: MySQL
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- Arquitetura: Single Action Controllers (invokable) e API Resources
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Padronização: Form Requests para validação de dados
 
-## Laravel Sponsors
+## ⚙️ Funcionalidades Principais
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Autenticação de Usuários: Registro e login com emissão de tokens via Sanctum.
 
-### Premium Partners
+- Gestão de Salas: CRUD completo de salas com controle de capacidade e disponibilidade.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Sistema de Agendamentos:
 
-## Contributing
+- Criação de reservas com validação de conflito de horários.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Fluxo de aprovação/cancelamento.
 
-## Code of Conduct
+### Inventário de Equipamentos:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Catálogo global de equipamentos.
 
-## Security Vulnerabilities
+- Vínculo Many-to-Many entre salas e equipamentos, permitindo definir quantidade e status (ativo/inativo) de cada item por sala.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Lógica de Desativação: Ao desativar uma sala, o sistema cancela automaticamente todos os agendamentos futuros pendentes ou aprovados.
 
-## License
+- Notificações: Envio de alertas aos usuários (ex: quando um agendamento é cancelado por manutenção da sala).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🧹 Comandos Customizados
+
+```bash
+php artisan app:clean-old-bookings
+```
+Este comando remove do banco de dados todos os agendamentos com status "cancelado" que foram atualizados há mais de 30 dias. Está configurado para rodar diariamente via Task Scheduler.
+
+## 🚀 Como Instalar
+
+1. Clone o repositório:
+
+   ```bash
+   git clone git@github.com:zeniltonp0/api-reserva-de-salas.git
+   ```
+
+2. Instale as dependências:
+
+    ```bash
+   composer install
+   ```
+3. Configure o .env:
+
+   ```bash
+    cp .env.example .envGET
+    php artisan key:generate
+   ```
+
+## Principais Endpoints
+
+| Método | Endpoint | Descrição |
+|:-------- |:--------:|:--------:|
+| POST     | /api/login | Autenticação e geração de token |
+| GET      | /api/salas | Listagem de salas com filtros de equipamentos. |
+| POST     | /api/agendamentos | Realiza uma nova reserva de sala. |
+| POST     | /api/admin/salas/{id}/equipamentos | Sincroniza o inventário de uma sala (Admin). |
+| DELETE   | /api/admin/equipamentos/{id} | Remove equipamento do catálogo (com trava de segurança). |
+   
